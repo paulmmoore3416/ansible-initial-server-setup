@@ -5,19 +5,19 @@ Ubuntu 20.04 Initial Server Setup Ansible Playbook
 
 Table of Contents
 
-About The Project
-Features
-Built With
-Getting Started
-Prerequisites
-Installation
-Configuration
-Usage
-Roadmap
-Contributing
-License
-Contact
-Acknowledgments
+    -About The Project
+    -Features
+    -Built With
+    -Getting Started
+    -Prerequisites
+    -Installation
+    -Configuration
+    -Usage
+    -Roadmap
+    -Contributing
+    -License
+    -Contact
+    -Acknowledgments
 
 About The Project
 
