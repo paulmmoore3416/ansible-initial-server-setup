@@ -1,4 +1,4 @@
-# ansible-initial-server-setup
+# Ansible Initial Server Setup
 Ansible playbook to automate initial server setup on Ubuntu 20.04
 
 Ubuntu 20.04 Initial Server Setup Ansible Playbook
