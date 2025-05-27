@@ -1,199 +1,249 @@
-# Ansible Initial Server Setup
-Ansible playbook to automate initial server setup on Ubuntu 20.04
+# 🚀 Ansible Initial Server Setup
 
-Ubuntu 20.04 Initial Server Setup Ansible Playbook
+Ansible playbook to automate initial server setup on **Ubuntu 20.04**.
 
-Table of Contents
+---
 
-    -About The Project
-    -Features
-    -Built With
-    -Getting Started
-    -Prerequisites
-    -Installation
-    -Configuration
-    -Usage
-    -Roadmap
-    -Contributing
-    -License
-    -Contact
-    -Acknowledgments
+## 📚 Table of Contents
 
-About The Project
+- [About The Project](#about-the-project)
+- [Features](#features)
+- [Built With](#built-with)
+- [Skills](#skills)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgments](#acknowledgments)
 
-This repository contains an Ansible playbook designed to automate the initial setup of a fresh Ubuntu 20.04 server. It streamlines the process of securing and preparing new instances for deployment, ensuring consistency across your infrastructure and significantly reducing manual configuration time.
+---
+
+## 📝 About The Project
+
+This repository contains an **Ansible playbook** designed to automate the initial setup of a fresh Ubuntu 20.04 server. It streamlines the process of securing and preparing new instances for deployment, ensuring a consistent and reliable setup.
 
 Whether you're provisioning a single VPS or multiple cloud instances, this playbook provides a robust and repeatable way to get your servers ready for your applications.
-Features
 
-    System Update & Upgrade: Ensures all packages are up-to-date.
+---
 
-    User Creation: Creates a new non-root user with sudo privileges.
+## ✨ Features
 
-    SSH Hardening:
+- **System Update & Upgrade**: Ensures all packages are up-to-date.
+- **User Creation**: Creates a new non-root user with sudo privileges.
+- **SSH Hardening**:
+  - Disables root login via SSH.
+  - Disables password authentication (requires SSH key authentication).
+  - Changes default SSH port (optional).
+- **Firewall Configuration (UFW)**:
+  - Enables UFW.
+  - Allows SSH access (on the configured port).
+  - Allows HTTP/HTTPS (optional, for web servers).
+  - Denies all other incoming traffic by default.
+- **Time Synchronization**: Installs and configures NTP or systemd-timesyncd.
+- **Basic Security Tools**: Installs fail2ban for brute-force attack prevention.
+- **Common Utilities**: Installs essential packages like curl, wget, git, unzip, etc.
 
-    Disables root login via SSH.
+---
 
-    Disables password authentication (requires SSH key authentication).
+## 🛠️ Built With
 
-    Changes default SSH port (optional).
+- [Ansible](https://www.ansible.com/)
+- [Ubuntu 20.04 LTS](https://ubuntu.com/)
 
-    Firewall Configuration (UFW):
+---
 
-    Enables UFW.
+## 🧑‍💻 Skills
 
-    Allows SSH access (on the configured port).
+<details>
+  <summary><strong>Ansible</strong></summary>
 
-    Allows HTTP/HTTPS (optional, for web servers).
+**Skill Level:**  
+`[██████░░░░░]` Medium
 
-    Denies all other incoming traffic by default.
+</details>
 
-    Time Synchronization: Installs and configures ntp or systemd-timesyncd.
+<details>
+  <summary><strong>Linux</strong></summary>
 
-    Basic Security Tools: Installs fail2ban for brute-force attack prevention.
+**Skill Level:**  
+`[██████░░░░░]` Medium
 
-    Common Utilities: Installs essential packages like curl, wget, git, unzip, etc.
+</details>
 
-Built With
+<details>
+  <summary><strong>Ubuntu</strong></summary>
 
-    Ansible
+**Skill Level:**  
+`[██████░░░░░]` Medium
 
-    Ubuntu 20.04 LTS
+</details>
 
-Getting Started
+<details>
+  <summary><strong>Red Hat</strong></summary>
 
-To get this playbook running on your servers, follow these steps.
-Prerequisites
+**Skill Level:**  
+`[██████░░░░░]` Medium
 
-Before you begin, ensure you have:
+</details>
 
-    Ansible Installed: You need Ansible (version 2.9 or higher is recommended) on your local machine (the control node).
+---
 
-    # On Debian/Ubuntu:
+## 🚦 Getting Started
+
+Follow these steps to get this playbook running on your servers.
+
+### ✅ Prerequisites
+
+- **Ansible Installed** (version 2.9+ recommended) on your control node.
+    ```bash
+    # Debian/Ubuntu:
     sudo apt update
     sudo apt install software-properties-common
     sudo add-apt-repository --yes --update ppa:ansible/ansible
     sudo apt install ansible
 
-    # On macOS (with Homebrew):
+    # macOS (with Homebrew):
     brew install ansible
+    ```
+- **SSH Access**: The target Ubuntu 20.04 server(s) must be accessible via SSH from your control node.
+- **SSH Key Authentication**: Highly recommended for root user or an initial sudo user on the target server.
+- **Python 3 on Target**: Ubuntu 20.04 comes with Python 3 preinstalled (required by Ansible).
 
-    SSH Access: The target Ubuntu 20.04 server(s) must be accessible via SSH from your control node.
+### 📦 Installation
 
-    SSH Key Authentication: It's highly recommended to use SSH key-based authentication for the root user (or an initial user with sudo privileges) on the target server.
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/paulmmoore3416/ansible-initial-server-setup.git
+    cd ansible-initial-server-setup
+    ```
 
-    Python on Target: Ubuntu 20.04 comes with Python 3 installed by default, which Ansible requires.
+### ⚙️ Configuration
 
-Installation
+#### 1. **Inventory File**
 
-    Clone the repository:
+Create or edit `inventory.ini` at the root of the playbook:
 
-    git clone https://github.com/your-username/ansible-ubuntu-setup.git
-    cd ansible-ubuntu-setup
+```ini
+[ubuntu_servers]
+your_server_ip_or_hostname ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
 
-Configuration
+# Multiple servers example:
+# server1.example.com ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
+# server2.example.com ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
+```
 
-You'll need to configure your inventory.ini file and group_vars/all.yml to match your environment.
+- `ansible_user`: The initial user to connect as (should have sudo privileges, root is common for initial setup).
+- `ansible_ssh_private_key_file`: Path to your SSH private key.
 
-    Define your hosts in inventory.ini:
-    Create or edit the inventory.ini file at the root of the playbook. Replace your_server_ip_or_hostname with your actual server details.
+#### 2. **Group Variables**
 
-    # inventory.ini
-    [ubuntu_servers]
-    your_server_ip_or_hostname ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
-    # If you have multiple servers, list them like this:
-    # server1.example.com ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
-    # server2.example.com ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
+Edit `group_vars/all.yml` to customize the setup:
 
-        ansible_user: The initial user to connect as (should have sudo privileges, root is common for initial setup).
+```yaml
+# --- New User Configuration ---
+new_user: "your_new_username"         # REQUIRED: The username for the new non-root user
+new_user_ssh_key: |                  # REQUIRED: Your public SSH key for the new user
+  ssh-rsa AAAAB3... your_public_key_goes_here your_email@example.com
 
-        ansible_ssh_private_key_file: Path to your SSH private key.
+# --- SSH Hardening ---
+ssh_port: 22                         # Optional: Change to a non-standard SSH port (e.g., 2222)
+disable_password_auth: true          # Disable password authentication for SSH
+disable_root_login: true             # Disable root login via SSH
 
-    Configure variables in group_vars/all.yml:
-    Edit the group_vars/all.yml file to customize the setup.
+# --- Firewall (UFW) Configuration ---
+enable_ufw: true                     # Enable UFW firewall
+allow_http: true                     # Allow incoming HTTP (port 80)
+allow_https: true                    # Allow incoming HTTPS (port 443)
+# allowed_ports:
+#   - 8080/tcp
+#   - 3306/tcp   # MySQL
 
-    # group_vars/all.yml
+# --- Other Settings ---
+install_ntp: true                    # Install NTP for time synchronization
+install_fail2ban: true               # Install Fail2Ban
+```
 
-    # --- New User Configuration ---
-    new_user: "your_new_username" # REQUIRED: The username for the new non-root user
-    new_user_ssh_key: |          # REQUIRED: Your public SSH key for the new user
-      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC... your_public_key_goes_here your_email@example.com
+> **Important**: Replace `your_new_username` and `new_user_ssh_key` with your actual desired username and public SSH key. This key will be used to log in as the new user after the playbook runs.
 
-    # --- SSH Hardening ---
-    ssh_port: 22                 # Optional: Change this to a non-standard SSH port (e.g., 2222)
-    disable_password_auth: true  # Set to true to disable password authentication for SSH
-    disable_root_login: true     # Set to true to disable root login via SSH
+---
 
-    # --- Firewall (UFW) Configuration ---
-    enable_ufw: true             # Set to true to enable UFW firewall
-    allow_http: true             # Set to true to allow incoming HTTP (port 80)
-    allow_https: true            # Set to true to allow incoming HTTPS (port 443)
-    # Add more ports if needed, e.g.:
-    # allowed_ports:
-    #   - 8080/tcp
-    #   - 3306/tcp # MySQL
+## ▶️ Usage
 
-    # --- Other Settings ---
-    install_ntp: true            # Set to true to install NTP for time synchronization
-    install_fail2ban: true       # Set to true to install Fail2Ban
+After configuring your `inventory.ini` and `group_vars/all.yml`, you can run the playbook:
 
-    Important: Replace "your_new_username" and the new_user_ssh_key with your actual desired username and your public SSH key. This key will be used to log in as the new user after the playbook runs.
+**Dry Run (Recommended First):**
+```bash
+ansible-playbook -i inventory.ini main.yml --check --diff
+```
 
-Usage
+**Run the Playbook:**
+```bash
+ansible-playbook -i inventory.ini main.yml --ask-become-pass
+```
+- `-i inventory.ini`: Specifies your inventory file.
+- `main.yml`: The main playbook file.
+- `--ask-become-pass`: Prompts for sudo password if required.
 
-Once you've configured your inventory.ini and group_vars/all.yml, you can run the playbook.
+After completion, you should be able to SSH into your server as the new user you specified, using your SSH key. Root login and password authentication should be disabled if configured.
 
-    Perform a dry run (recommended first):
-    This will show you what changes Ansible would make without actually applying them.
+---
 
-    ansible-playbook -i inventory.ini main.yml --check --diff
+## 🗺️ Roadmap
 
-    Run the playbook:
-    This will execute the playbook and apply the configurations to your server(s).
+- [ ] Add support for other Linux distributions (e.g., CentOS, Debian)
+- [ ] Include roles for common applications (e.g., Docker, Nginx, PostgreSQL)
+- [ ] Implement idempotency checks for all tasks
+- [ ] Improve error handling and reporting
+- [ ] Add more comprehensive security hardening options
 
-    ansible-playbook -i inventory.ini main.yml --ask-become-pass
+> See the [open issues](../../issues) for a full list of proposed features and known issues.
 
-        -i inventory.ini: Specifies your inventory file.
+---
 
-        main.yml: The main playbook file.
+## 🤝 Contributing
 
-        --ask-become-pass: Prompts for the sudo password on the target machine if ansible_user is not root or if passwordless sudo is not configured for the initial user. If you're connecting as root with an SSH key, you might not need this.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create! Any contributions you make are **greatly appreciated**.
 
-    After the playbook completes, you should be able to SSH into your server as the new_user you specified, using your SSH key. Root login and password authentication should be disabled (if configured).
+1. **Fork the Project**
+2. **Create your Feature Branch**  
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Commit your Changes**  
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+4. **Push to the Branch**  
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. **Open a Pull Request**
 
-Roadmap
+Or simply open an issue with the tag `enhancement`.
 
-    [ ] Add support for other Linux distributions (e.g., CentOS, Debian).
+> \⭐ Don’t forget to give the project a star!
 
-    [ ] Include roles for common applications (e.g., Docker, Nginx, PostgreSQL).
+---
 
-    [ ] Implement idempotency checks for all tasks.
+## 📄 License
 
-    [ ] Improve error handling and reporting.
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
-    [ ] Add more comprehensive security hardening options.
+---
 
-See the open issues for a full list of proposed features (and known issues).
-Contributing
+## 📫 Contact
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+**Project Link:** [https://github.com/paulmmoore3416/ansible-initial-server-setup](https://github.com/paulmmoore3416/ansible-initial-server-setup)
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+---
 
-    Fork the Project
+## 🙏 Acknowledgments
 
-    Create your Feature Branch (git checkout -b feature/AmazingFeature)
+> Thanks to the open source community for inspiration and guidance!
 
-    Commit your Changes (git commit -m 'Add some AmazingFeature')
-
-    Push to the Branch (git push origin feature/AmazingFeature)
-
-    Open a Pull Request
-
-License
-
-Distributed under the MIT License. See LICENSE for more information.
-Contact
-
-Project Link: [https://github.com/paulmmoore3416/ansible-initial-server-setup]
+---
