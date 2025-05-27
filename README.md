@@ -1,3 +1,4 @@
+![Project Banner](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*c8BaaE4zIVu9llxLouqPlg.png)
 # 🚀 Ansible Initial Server Setup
 
 Ansible playbook to automate initial server setup on **Ubuntu 20.04**.
