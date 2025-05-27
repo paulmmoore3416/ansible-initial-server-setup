@@ -26,9 +26,38 @@ Ansible playbook to automate initial server setup on **Ubuntu 20.04**.
 
 ## 📝 About The Project
 
-This repository contains an **Ansible playbook** designed to automate the initial setup of a fresh Ubuntu 20.04 server. It streamlines the process of securing and preparing new instances for deployment, ensuring a consistent and reliable setup.
+## About
 
-Whether you're provisioning a single VPS or multiple cloud instances, this playbook provides a robust and repeatable way to get your servers ready for your applications.
+**ansible-initial-server-setup** is an Ansible playbook designed to automate the essential tasks involved in preparing a new server for production use. This project streamlines the initial server configuration process, ensuring that newly provisioned servers are secure, consistent, and ready for deployment.
+
+### Key Features
+
+- **Automated User Creation**: Seamlessly creates new non-root users with SSH key authentication for improved security.
+- **SSH Hardening**: Configures SSH settings, disables root login, and enforces secure authentication practices.
+- **System Updates**: Automatically applies the latest security patches and package updates to keep your system up to date.
+- **Firewall Configuration**: Installs and configures UFW (Uncomplicated Firewall) to restrict open ports and enhance server security.
+- **Essential Tools**: Installs basic packages and utilities commonly required for server administration.
+- **Customizable Variables**: Easily adapt the playbook to your needs by modifying variables for users, SSH keys, and other settings.
+
+### Use Cases
+
+- Provisioning new cloud or bare-metal servers
+- Establishing a secure and consistent baseline for production environments
+- Automating repetitive setup tasks for system administrators and DevOps teams
+
+### Getting Started
+
+To use this playbook, clone the repository and adjust the variables in the `group_vars/all.yml` file according to your requirements. Then, run the playbook using Ansible:
+
+```bash
+ansible-playbook -i inventory initial-server-setup.yml
+```
+
+For detailed setup instructions and customization options, please refer to the [README](./README.md).
+
+---
+
+Automate your server setup with confidence and best practices using **ansible-initial-server-setup**.
 
 ---
 
