@@ -3,6 +3,7 @@
 
 ![Red Hat](https://img.shields.io/badge/OS-RHEL_10-%23ee0000?logo=redhat&logoColor=white)
 ![Ansible](https://img.shields.io/badge/Automation-Ansible-%23EE0000?logo=ansible)
+![Linux](https://img.shields.io/badge/Platform-Linux-%23FCC624?logo=linux&logoColor=black)
 
 # Ansible Initial Server Setup
 
