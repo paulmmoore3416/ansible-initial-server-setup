@@ -1,5 +1,8 @@
 ![Project Banner](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*c8BaaE4zIVu9llxLouqPlg.png)
 [Download Ansible from Red Hat](https://developers.redhat.com/products/ansible/download)
+![Red Hat](https://img.shields.io/badge/OS-RHEL_10-%23ee0000?logo=redhat&logoColor=white)
+![Ansible](https://img.shields.io/badge/Automation-Ansible-%23EE0000?logo=ansible)
+
 # Ansible Initial Server Setup
 
 Ansible playbook to automate initial server setup on **Ubuntu 20.04**.
