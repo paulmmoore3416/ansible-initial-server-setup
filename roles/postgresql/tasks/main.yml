@@ -1,0 +1,17 @@
+---
+- name: Install PostgreSQL
+  package:
+    name: postgresql
+    state: present
+
+- name: Start PostgreSQL
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Allow PostgreSQL port
+  ufw:
+    rule: allow
+    port: 5432
+    proto: tcp
