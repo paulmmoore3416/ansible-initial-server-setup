@@ -1,0 +1,28 @@
+---
+- name: Create admin user
+  user:
+    name: "{{ admin_user }}"
+    password: "{{ admin_password | password_hash('sha512') }}"
+    groups: sudo
+    shell: /bin/bash
+    state: present
+
+- name: Create deploy user
+  user:
+    name: deploy
+    groups: sudo
+    shell: /bin/bash
+    state: present
+
+- name: Add SSH key for deploy user
+  authorized_key:
+    user: deploy
+    key: "{{ ssh_key }}"
+    state: present
+
+- name: Disable root login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin "
+    line: "PermitRootLogin no"
+  notify: restart ssh

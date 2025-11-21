@@ -1,0 +1,20 @@
+---
+# Global variables
+admin_user: admin
+admin_password: changeme123
+ssh_port: 22
+timezone: UTC
+
+# Packages to install
+common_packages:
+  - vim
+  - curl
+  - wget
+  - htop
+  - git
+
+# Users to create
+users:
+  - name: deploy
+    groups: sudo
+    ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
